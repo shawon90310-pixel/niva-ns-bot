@@ -8,7 +8,6 @@ function openSellForm(name, rate, limit, targetId) {
     currentCoin = { name, rate, limit }; 
     document.getElementById('formTitle').innerText = "Sell " + name;
     document.getElementById('copyTargetId').innerText = targetId;
-    document.getElementById('minLimitLabel').innerText = limit.toLocaleString();
     showPage(2);
 }
 
@@ -21,11 +20,6 @@ function showReview() {
 
     if(!amt || !user || !num) {
         tg.showAlert("সব তথ্য পূরণ করুন!");
-        return;
-    }
-
-    if(parseInt(amt) < currentCoin.limit) {
-        tg.showAlert("সর্বনিম্ন সীমা " + currentCoin.limit);
         return;
     }
 
@@ -42,14 +36,14 @@ function showReview() {
     showPage(3);
 }
 
-// ৩. গুগল শিটে ডাটা পাঠানোর ফাংশন (আপনার লিংকটি এখানে বসানো হয়েছে)
+// ৩. গুগল শিটে ডাটা পাঠানোর ফাংশন (আপনার নতুন লিঙ্কটি এখানে বসানো হয়েছে)
 function finalSubmit() {
     const btn = document.getElementById('submitBtn');
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    // আপনার দেওয়া গুগল স্ক্রিপ্ট লিংক
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxFKoxWfTiKhwtoAmOd13cOB9LSPAwLK1CrcTKYZjnaJV5wcBaLbtd_Jjsxz23dQjcj9w/exec';
+    // আপনার দেওয়া নতুন গুগল স্ক্রিপ্ট লিঙ্ক
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyfwsDiv2pkO-NAi4z41hacOnKeHEl3ykHR2LGZAPvQbMGYlU7TUxxmGHN_0HXgZkzg/exec';
 
     const data = {
         tgId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
