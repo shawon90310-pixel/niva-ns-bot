@@ -87,3 +87,36 @@ function copyId() {
     navigator.clipboard.writeText(id);
     tg.showAlert("Copied: " + id);
 }
+function finalSubmit() {
+    const btn = document.getElementById('submitBtn');
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyfwsDiv2pkO-NAi4z41hacOnKeHEl3ykHR2LGZAPvQbMGYlU7TUxxmGHN_0HXgZkzg/exec';
+
+    const data = {
+        telegramId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
+        coinType: currentCoin.name,
+        senderUsername: document.getElementById('senderUsername').value,
+        amount: document.getElementById('coinAmount').value,
+        paymentMethod: document.getElementById('paymentMethod').value,
+        paymentNumber: document.getElementById('walletNumber').value,
+        status: "Pending"
+    };
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        tg.showAlert("অর্ডারটি সফলভাবে জমা হয়েছে!");
+        tg.close();
+    }).catch((error) => {
+        tg.showAlert("Error: " + error);
+        btn.disabled = false;
+        btn.innerText = "Confirm & Submit ✓";
+    });
+}
