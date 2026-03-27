@@ -15,13 +15,6 @@ function openSellForm(name, rate, limit, targetId) {
     document.getElementById('copyTargetId').innerText = targetId; 
     showPage(2);
 }
-function openSellForm(name, rate, limit, targetId) {
-    currentCoin = { name, rate, limit }; 
-    document.getElementById('formTitle').innerText = "Sell " + name;
-    document.getElementById('copyTargetId').innerText = targetId; 
-    showPage(2);
-}
-
 function showReview() {
     const amt = document.getElementById('coinAmount').value;
     const user = document.getElementById('senderUsername').value;
