@@ -11,6 +11,33 @@ function openSellForm(name, rate, limit, targetId) {
 }
 
 function showReview() {
+    // এই নিচের ৪টি লাইন আপনার কোডে আগে থেকেই আছে
+    const amt = document.getElementById('coinAmount').value;
+    const user = document.getElementById('senderUsername').value;
+    const method = document.getElementById('paymentMethod').value;
+    const num = document.getElementById('walletNumber').value;
+
+    // ঠিক এখান থেকে নিচের কোডগুলো নতুন করে বসিয়ে দিন
+    if(!amt || !user || !num) {
+        tg.showAlert("সবগুলো ঘর পূরণ করুন!");
+        return;
+    }
+
+    // ১০০০ কয়েনের দাম ১০.৫০ হলে হিসাব ঠিক করার কোড
+    const ratePerUnit = currentCoin.rate / 1000;
+    const totalEarnings = amt * ratePerUnit;
+
+    document.getElementById('revCoin').innerText = currentCoin.name;
+    document.getElementById('revAmount').innerText = amt;
+    document.getElementById('revSender').innerText = user;
+    document.getElementById('revMethod').innerText = method;
+    document.getElementById('revNumber').innerText = num;
+    
+    // ০.০০ সমস্যা দূর করার জন্য এই লাইনটি
+    document.getElementById('revTotal').innerText = totalEarnings.toFixed(2) + " ৳";
+
+    showPage(3);
+}{
     const amt = document.getElementById('coinAmount').value;
     const user = document.getElementById('senderUsername').value;
     const method = document.getElementById('paymentMethod').value;
