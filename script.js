@@ -23,7 +23,7 @@ document.getElementById('sell-form').addEventListener('submit', function(e) {
         status: 'Pending'
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbxiOgWihx2YrQWC9mnwswY5tSmohfdbNHTrRYXGwfRXoF67q1HjPAUPiA26bNrR3i2r/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbxFKoxWfTiKhwtoAmOd13cOB9LSPAwLK1CrcTKYZjnaJV5wcBaLbtd_Jjsxz23dQjcj9w/exec', {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(data)
