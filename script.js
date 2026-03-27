@@ -68,7 +68,7 @@ function finalSubmit() {
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxAZuxyFc1gRgeS8yY2PJgUj55aNeVLAyKweQhD7KyfeHFRnMHO9Z7FC9btN0LyR6LV0w/execক';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxAZuxyFc1gRgeS8yY2PJgUj55aNeVLAyKweQhD7KyfeHFRnMHO9Z7FC9btN0LyR6LV0w/exec';
 
     const data = {
         telegramId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
