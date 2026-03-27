@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-    
-            </div>
-
+<body>
+    <div class="container">
+        <div id="step1" class="page active">
             <div class="coin-card" onclick="openSellForm('Ns coin', 0.0105, 10000, 'niva_buyer_zone_ns')">
                 <div class="coin-info">
                     <img src="https://via.placeholder.com/40" alt="icon">
@@ -35,7 +35,7 @@
             <div class="copy-id-box">
                 <p>SEND COINS TO THIS ID</p>
                 <h3 id="copyTargetId">ns_buy_user</h3>
-                <button onclick="copyId(ns_buy_user)">ns_buy_user</button>
+                <button onclick="copyId()">COPY ID</button>
             </div>
 
             <div class="input-group">
@@ -51,5 +51,44 @@
                     <input type="text" id="walletNumber" placeholder="Payment Number">
                 </div>
             </div>
-<button class="main-btn" onclick="showReview()">Next Step →</button>
-          
+            <button class="main-btn" onclick="showReview()">Next Step →</button>
+        </div>
+
+        <div id="step3" class="page">
+            <div class="form-header">
+                <h2>Review Details</h2>
+                <button class="close-btn" onclick="goBack(2)">✕</button>
+            </div>
+            <p style="text-align: center; color: #94a3b8; font-size: 12px; margin-bottom: 15px;">Please check everything before final submission.</p>
+            
+            <div class="review-box" style="background: rgba(30, 41, 59, 0.7); padding: 15px; border-radius: 12px; border: 1px solid #334155;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Coin:</span><b id="revCoin">---</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Amount:</span><b id="revAmount">0</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Sender:</span><b id="revSender">---</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Method:</span><b id="revMethod">---</b>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span>Account No:</span><b id="revNumber">---</b>
+                </div>
+                <hr style="border: 0.1px solid #334155; margin: 10px 0;">
+                <div style="text-align: center;">
+                    <span style="color: #94a3b8; font-size: 14px;">You Will Get:</span>
+                    <h2 id="revTotal" style="color: #10b981; margin-top: 5px;">0.00 ৳</h2>
+                </div>
+            </div>
+
+            <button class="main-btn" id="submitBtn" onclick="finalSubmit()" style="background: linear-gradient(90deg, #6366f1, #10b981); margin-top: 20px;">Confirm & Submit ✓</button>
+            <button onclick="goBack(2)" style="width: 100%; background: none; border: none; color: #94a3b8; margin-top: 10px; cursor: pointer; font-size: 14px;">Go Back & Edit</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
