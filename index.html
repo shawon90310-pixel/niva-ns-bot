@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niva Buyer Zone</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://webapp.telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="main-content">
+        <header><h2>Coin Market</h2></header>
+        <div class="card" onclick="openSellForm('Niva Coin', 2.7)">
+            <div class="card-header"><h3>Niva Coin</h3><span class="status online">• ONLINE</span></div>
+            <div class="rates"><div class="rate-box"><span>User Rate</span><br><b>2.7৳</b></div></div>
+            <p class="tap-sell">• TAP TO SELL</p>
+        </div>
+        <div class="card" onclick="openSellForm('NS Coin', 11.2)">
+            <div class="card-header"><h3>NS coin</h3><span class="status online">• ONLINE</span></div>
+            <div class="rates"><div class="rate-box"><span>User Rate</span><br><b>11.2৳</b></div></div>
+            <p class="tap-sell">• TAP TO SELL</p>
+        </div>
+    </div>
+
+    <div id="sell-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <form id="sell-form">
+                <input type="hidden" id="coin-type-input">
+                <input type="number" id="amount-input" placeholder="Amount" required>
+                <input type="text" id="sender-id-input" placeholder="Sender Username" required>
+                <select id="payment-method-select">
+                    <option value="Bkash">Bkash</option>
+                    <option value="Nagad">Nagad</option>
+                    <option value="Rocket">Rocket</option>
+                </select>
+                <input type="number" id="payment-number-input" placeholder="Payment Number" required>
+                <button type="submit" class="btn-next">Next Step →</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
