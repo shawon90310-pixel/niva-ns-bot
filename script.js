@@ -1,11 +1,11 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };ো
+// ডিফল্ট ভ্যালু
 let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };
 
+// ১. এই ফাংশনটি বাটন ক্লিক করলে পেজ বদলাবে
 function openSellForm(name, rate, limit, targetId) {
-
     currentCoin = { 
         name: name, 
         rate: parseFloat(rate), 
@@ -15,6 +15,8 @@ function openSellForm(name, rate, limit, targetId) {
     document.getElementById('copyTargetId').innerText = targetId; 
     showPage(2);
 }
+
+// ২. রিভিউ পেজে ডাটা দেখানোর ফাংশন
 function showReview() {
     const amt = document.getElementById('coinAmount').value;
     const user = document.getElementById('senderUsername').value;
@@ -22,7 +24,7 @@ function showReview() {
     const num = document.getElementById('walletNumber').value;
 
     if(!amt || !user || !num) {
-        tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
+        tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
         return;
     }
 
@@ -31,7 +33,6 @@ function showReview() {
         return;
     }
 
-    
     const totalEarnings = (amt / 1000) * currentCoin.rate;
 
     document.getElementById('revCoin').innerText = currentCoin.name;
@@ -44,56 +45,30 @@ function showReview() {
     showPage(3);
 }
 
-function finalSubmit() {
-    const btn = document.getElementById('submitBtn');
-    btn.innerText = "Sending...";
-    btn.disabled = true;
-
-    
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxFKoxWfTiKhwtoAmOd13cOB9LSPAwLK1CrcTKYZjnaJV5wcBaLbtd_Jjsxz23dQjcj9w/exec';
-
-    const data = {
-        tgId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
-        coinType: currentCoin.name,
-        senderUsername: document.getElementById('senderUsername').value,
-        amount: document.getElementById('coinAmount').value,
-        paymentMethod: document.getElementById('paymentMethod').value,
-        paymentNumber: document.getElementById('walletNumber').value
-    };
-
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(data)
-    }).then(() => {
-        tg.showAlert("অর্ডারটি সফলভাবে জমা হয়েছে!");
-        tg.close();
-    }).catch(() => {
-        tg.showAlert("Error sending data!");
-        btn.disabled = false;
-        btn.innerText = "Confirm & Submit ✓";
-    });
-}
-
-function showPage(num) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('step' + num).classList.add('active');
-}
-
-function goBack(num) { showPage(num); }
-
+// ৩. কপি করার ফাংশন
 function copyId() {
     const id = document.getElementById('copyTargetId').innerText;
     navigator.clipboard.writeText(id);
     tg.showAlert("Copied: " + id);
 }
+
+// ৪. পেজ নেভিগেশন
+function showPage(num) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + num).classList.add('active');
+}
+
+function goBack(num) { 
+    showPage(num); 
+}
+
+// ৫. ফাইনাল সাবমিট (শিটে ডাটা পাঠানোর জন্য)
 function finalSubmit() {
     const btn = document.getElementById('submitBtn');
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyfwsDiv2pkO-NAi4z41hacOnKeHEl3ykHR2LGZAPvQbMGYlU7TUxxmGHN_0HXgZkzg/exec';
+    const scriptURL = 'আপনার_গুগল_স্ক্রিপ্ট_লিঙ্ক';
 
     const data = {
         telegramId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
@@ -112,10 +87,10 @@ function finalSubmit() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }).then(() => {
-        tg.showAlert("অর্ডারটি সফলভাবে জমা হয়েছে!");
+        tg.showAlert("অর্ডার সফল হয়েছে!");
         tg.close();
-    }).catch((error) => {
-        tg.showAlert("Error: " + error);
+    }).catch(() => {
+        tg.showAlert("ভুল হয়েছে, আবার চেষ্টা করুন।");
         btn.disabled = false;
         btn.innerText = "Confirm & Submit ✓";
     });
