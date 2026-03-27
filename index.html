@@ -3,14 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Coin Markets</title>
+    <title>NIVA BUYER ZONE</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="container">
         <div id="step1" class="page active">
-            <div class="coin-card" onclick="openSellForm('Ns coin', 0.0105, 10000, 'niva_buyer_zone_ns')">
+            <h2 style="text-align: center; margin-bottom: 20px;">Coin Market</h2>
+            
+            <div class="coin-card" onclick="openSellForm('Niva Coin', 2.7, 20000, 'niva_buyer_zone_1')">
+                <div class="coin-info">
+                    <img src="https://via.placeholder.com/40" alt="icon">
+                    <div>
+                        <h3>Niva Coin</h3>
+                        <p>LIVE MARKET RATE</p>
+                    </div>
+                </div>
+                <div class="rate-grid">
+                    <div class="rate-box blue">User Rate<br><span>2.5৳</span></div>
+                    <div class="rate-box green">Admin Rate<br><span>2.5৳</span></div>
+                </div>
+                <p class="limit-text">Min Submit: 20,000</p>
+            </div>
+
+            <div class="coin-card" onclick="openSellForm('Ns coin', 10.5, 10000, 'ns_buy_user')">
                 <div class="coin-info">
                     <img src="https://via.placeholder.com/40" alt="icon">
                     <div>
@@ -19,8 +36,8 @@
                     </div>
                 </div>
                 <div class="rate-grid">
-                    <div class="rate-box blue">User Rate<br><span>10.50৳</span></div>
-                    <div class="rate-box green">Admin Rate<br><span>10.50৳</span></div>
+                    <div class="rate-box blue">User Rate<br><span>10.5৳</span></div>
+                    <div class="rate-box green">Admin Rate<br><span>10.5৳</span></div>
                 </div>
                 <p class="limit-text">Min Submit: 10,000</p>
             </div>
@@ -34,13 +51,13 @@
             
             <div class="copy-id-box">
                 <p>SEND COINS TO THIS ID</p>
-                <h3 id="copyTargetId">ns_buy_user</h3>
+                <h3 id="copyTargetId">---</h3>
                 <button onclick="copyId()">COPY ID</button>
             </div>
 
             <div class="input-group">
                 <label>MINIMUM SUBMIT LIMIT: <span id="minLimitLabel">0</span></label>
-                <input type="number" id="coinAmount" placeholder="Enter amount" oninput="liveCalc()">
+                <input type="number" id="coinAmount" placeholder="Enter amount">
                 <input type="text" id="senderUsername" placeholder="Sender Username">
                 <div class="row">
                     <select id="paymentMethod">
@@ -59,36 +76,19 @@
                 <h2>Review Details</h2>
                 <button class="close-btn" onclick="goBack(2)">✕</button>
             </div>
-            <p style="text-align: center; color: #94a3b8; font-size: 12px; margin-bottom: 15px;">Please check everything before final submission.</p>
-            
-            <div class="review-box" style="background: rgba(30, 41, 59, 0.7); padding: 15px; border-radius: 12px; border: 1px solid #334155;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>Coin:</span><b id="revCoin">---</b>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>Amount:</span><b id="revAmount">0</b>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>Sender:</span><b id="revSender">---</b>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>Method:</span><b id="revMethod">---</b>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>Account No:</span><b id="revNumber">---</b>
-                </div>
-                <hr style="border: 0.1px solid #334155; margin: 10px 0;">
-                <div style="text-align: center;">
-                    <span style="color: #94a3b8; font-size: 14px;">You Will Get:</span>
-                    <h2 id="revTotal" style="color: #10b981; margin-top: 5px;">0.00 ৳</h2>
-                </div>
+            <div class="review-box" style="background: #1e293b; padding: 15px; border-radius: 12px; margin-top: 10px;">
+                <p>Coin: <b id="revCoin" style="float: right;">---</b></p>
+                <p>Amount: <b id="revAmount" style="float: right;">0</b></p>
+                <p>Sender: <b id="revSender" style="float: right;">---</b></p>
+                <p>Method: <b id="revMethod" style="float: right;">---</b></p>
+                <p>Account No: <b id="revNumber" style="float: right;">---</b></p>
+                <hr>
+                <p style="text-align: center;">You Will Get:<br><span id="revTotal" style="font-size: 24px; color: #10b981;">0.00 ৳</span></p>
             </div>
-
-            <button class="main-btn" id="submitBtn" onclick="finalSubmit()" style="background: linear-gradient(90deg, #6366f1, #10b981); margin-top: 20px;">Confirm & Submit ✓</button>
-            <button onclick="goBack(2)" style="width: 100%; background: none; border: none; color: #94a3b8; margin-top: 10px; cursor: pointer; font-size: 14px;">Go Back & Edit</button>
+            <button class="main-btn" id="submitBtn" onclick="finalSubmit()" style="background: #6366f1; margin-top: 20px;">Confirm & Submit ✓</button>
+            <p onclick="goBack(2)" style="text-align: center; color: #94a3b8; cursor: pointer; margin-top: 10px;">Go Back & Edit</p>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
