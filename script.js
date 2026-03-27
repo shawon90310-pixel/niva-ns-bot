@@ -5,7 +5,7 @@ let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };ো
 let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };
 
 function openSellForm(name, rate, limit, targetId) {
-    // এখানে parseFloat ব্যবহার করা হয়েছে যাতে দশমিক সংখ্যা ঠিক থাকে
+
     currentCoin = { 
         name: name, 
         rate: parseFloat(rate), 
@@ -31,7 +31,7 @@ function showReview() {
         return;
     }
 
-    // নির্ভুল ক্যালকুলেশন: (পরিমাণ / ১০০০) * রেট
+    
     const totalEarnings = (amt / 1000) * currentCoin.rate;
 
     document.getElementById('revCoin').innerText = currentCoin.name;
@@ -49,7 +49,7 @@ function finalSubmit() {
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    // আপনার অ্যাপস স্ক্রিপ্ট URL
+    
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxFKoxWfTiKhwtoAmOd13cOB9LSPAwLK1CrcTKYZjnaJV5wcBaLbtd_Jjsxz23dQjcj9w/exec';
 
     const data = {
