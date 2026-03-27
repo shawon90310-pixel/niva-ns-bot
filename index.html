@@ -3,56 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIVA + NS BUYER ZONE</title>
+    <title>NIVA+NS BUYER ZONE</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-<body>
-    <div class="container">
+<body class="dark-theme">
+    <div id="app">
         <div id="step1" class="page active">
-            <h2 style="text-align: center;">Coin Market</h2>
+            <h2 style="text-align: center; color: white;">Coin Market</h2>
+            
             <div class="coin-card" onclick="openSellForm('Niva Coin', 2.7, 20000, 'niva_buyer_zone_1')">
-                <h3>Niva Coin Close-up</h3>
-                <p>User Rate: 2.7৳ (1k)</p>
-                <p>Min: 20,000</p>
+                <h3>Niva Coin Close-up 🆑 ⛞ 🔐</h3>
+                <p>Rate: 2.7৳ (1k) • Min: 20k Close-up 🆑 ⛞ 🔐</p>
             </div>
-            <div class="coin-card" onclick="openSellForm('Ns coin', 10.5, 10000, 'ns_buy_user')">
-                <h3>Ns coin</h3>
-                <p>User Rate: 10.5৳ (1k)</p>
-                <p>Min: 10,000</p>
+
+            <div style="margin-top: 25px; cursor: pointer;" onclick="openSellForm('Ns coin', 10.50, 10000, 'ns_buy_user')">
+                <h3 style="color: white; margin-bottom: 5px;">Ns coin</h3>
+                <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px;">LIVE MARKET RATE</p>
+                
+                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 10px;">
+                    <div style="font-size: 14px; opacity: 0.8;">User Rate</div>
+                    <div style="font-size: 18px; font-weight: bold;">10.50৳</div>
+                </div>
+
+                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 14px; opacity: 0.8;">Admin Rate</div>
+                    <div style="font-size: 18px; font-weight: bold;">10.50৳</div>
+                </div>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 10px; text-align: center;">Min Submit: 10,000</p>
             </div>
         </div>
 
         <div id="step2" class="page">
             <h2 id="formTitle">Sell</h2>
-            <div class="copy-box">
+            <div class="copy-box" style="background: #1e293b; padding: 10px; border-radius: 10px; text-align: center;">
                 <p>Send to ID: <b id="copyTargetId">---</b></p>
-                <button onclick="copyId()">COPY</button>
+                <button onclick="copyId()" style="background: #3b82f6; color: white; border: none; padding: 5px 15px; border-radius: 5px;">COPY</button>
             </div>
-            <input type="number" id="coinAmount" placeholder="Enter amount">
-            <input type="text" id="senderUsername" placeholder="Sender Username">
-            <select id="paymentMethod">
+            <input type="number" id="coinAmount" placeholder="Enter amount" style="width: 100%; margin-top: 20px; padding: 10px; border-radius: 8px;">
+            <input type="text" id="senderUsername" placeholder="Sender Username" style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px;">
+            <select id="paymentMethod" style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px;">
                 <option value="Bkash">Bkash</option>
                 <option value="Nagad">Nagad</option>
                 <option value="Rocket">Rocket</option>
             </select>
-            <input type="text" id="walletNumber" placeholder="Number">
-            <button class="main-btn" onclick="showReview()">Next Step →</button>
+            <input type="text" id="walletNumber" placeholder="Payment Number" style="width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px;">
+            <button class="main-btn" onclick="showReview()" style="width: 100%; margin-top: 20px; padding: 15px; background: #3b82f6; color: white; border: none; border-radius: 10px;">Next Step →</button>
         </div>
 
         <div id="step3" class="page">
             <h2>Review Details</h2>
-            <div class="review-list">
-                <p>Coin: <span id="revCoin"></span></p>
-                <p>Amount: <span id="revAmount"></span></p>
-                <p>Sender: <span id="revSender"></span></p>
-                <p>Method: <span id="revMethod"></span></p>
-                <p>Number: <span id="revNumber"></span></p>
+            <div style="background: #1e293b; padding: 15px; border-radius: 12px;">
+                <p>Coin: <span id="revCoin" style="float: right;"></span></p>
+                <p>Amount: <span id="revAmount" style="float: right;"></span></p>
+                <p>Sender: <span id="revSender" style="float: right;"></span></p>
+                <p>Method: <span id="revMethod" style="float: right;"></span></p>
+                <p>Number: <span id="revNumber" style="float: right;"></span></p>
                 <hr>
-                <h3 style="color: #10b981;">Total: <span id="revTotal"></span></h3>
+                <h3 style="text-align: center; color: #10b981;">Total: <span id="revTotal"></span></h3>
             </div>
-            <button class="main-btn" id="submitBtn" onclick="finalSubmit()">Confirm & Submit ✓</button>
-            <p onclick="goBack(1)" style="text-align: center; cursor: pointer;">Cancel</p>
+            <button id="submitBtn" onclick="finalSubmit()" style="width: 100%; margin-top: 20px; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px;">Confirm & Submit ✓</button>
+            <p onclick="goBack(1)" style="text-align: center; margin-top: 15px; cursor: pointer; color: #94a3b8;">Go Back</p>
         </div>
     </div>
     <script src="script.js"></script>
