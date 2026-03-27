@@ -1,8 +1,20 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-let currentCoin = { name: "", rate: 0, limit: 0 };
+// এখানে ডিফল্ট রেট ১০.৫০ এবং নাম Ns coin সেট করা হলো
+let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };
 
+function openSellForm(name, rate, limit, targetId) {
+    // এখানে parseFloat ব্যবহার করা হয়েছে যাতে দশমিক সংখ্যা ঠিক থাকে
+    currentCoin = { 
+        name: name, 
+        rate: parseFloat(rate), 
+        limit: parseInt(limit) 
+    }; 
+    document.getElementById('formTitle').innerText = "Sell " + name;
+    document.getElementById('copyTargetId').innerText = targetId; 
+    showPage(2);
+}
 function openSellForm(name, rate, limit, targetId) {
     currentCoin = { name, rate, limit }; 
     document.getElementById('formTitle').innerText = "Sell " + name;
