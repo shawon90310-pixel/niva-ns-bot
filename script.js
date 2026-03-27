@@ -6,49 +6,27 @@ let currentCoin = { name: "", rate: 0, limit: 0 };
 function openSellForm(name, rate, limit, targetId) {
     currentCoin = { name, rate, limit }; 
     document.getElementById('formTitle').innerText = "Sell " + name;
-    document.getElementById('copyTargetId').innerText = targetId;
+    document.getElementById('copyTargetId').innerText = targetId; 
     showPage(2);
 }
 
 function showReview() {
-    // এই নিচের ৪টি লাইন আপনার কোডে আগে থেকেই আছে
-    const amt = document.getElementById('coinAmount').value;
-    const user = document.getElementById('senderUsername').value;
-    const method = document.getElementById('paymentMethod').value;
-    const num = document.getElementById('walletNumber').value;
-
-    // ঠিক এখান থেকে নিচের কোডগুলো নতুন করে বসিয়ে দিন
-    if(!amt || !user || !num) {
-        tg.showAlert("সবগুলো ঘর পূরণ করুন!");
-        return;
-    }
-
-    // ১০০০ কয়েনের দাম ১০.৫০ হলে হিসাব ঠিক করার কোড
-    const ratePerUnit = currentCoin.rate / 1000;
-    const totalEarnings = amt * ratePerUnit;
-
-    document.getElementById('revCoin').innerText = currentCoin.name;
-    document.getElementById('revAmount').innerText = amt;
-    document.getElementById('revSender').innerText = user;
-    document.getElementById('revMethod').innerText = method;
-    document.getElementById('revNumber').innerText = num;
-    
-    // ০.০০ সমস্যা দূর করার জন্য এই লাইনটি
-    document.getElementById('revTotal').innerText = totalEarnings.toFixed(2) + " ৳";
-
-    showPage(3);
-}{
     const amt = document.getElementById('coinAmount').value;
     const user = document.getElementById('senderUsername').value;
     const method = document.getElementById('paymentMethod').value;
     const num = document.getElementById('walletNumber').value;
 
     if(!amt || !user || !num) {
-        tg.showAlert("Please fill all fields!");
+        tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
         return;
     }
 
-    // সঠিক ক্যালকুলেশন (পরিমাণ / ১০০০ * রেট)
+    if(parseInt(amt) < currentCoin.limit) {
+        tg.showAlert("সর্বনিম্ন লিমিট " + currentCoin.limit);
+        return;
+    }
+
+    // নির্ভুল ক্যালকুলেশন: (পরিমাণ / ১০০০) * রেট
     const totalEarnings = (amt / 1000) * currentCoin.rate;
 
     document.getElementById('revCoin').innerText = currentCoin.name;
@@ -83,10 +61,10 @@ function finalSubmit() {
         mode: 'no-cors',
         body: JSON.stringify(data)
     }).then(() => {
-        tg.showAlert("অর্ডারটি শিটে জমা হয়েছে!");
+        tg.showAlert("অর্ডারটি সফলভাবে জমা হয়েছে!");
         tg.close();
     }).catch(() => {
-        tg.showAlert("Error!");
+        tg.showAlert("Error sending data!");
         btn.disabled = false;
         btn.innerText = "Confirm & Submit ✓";
     });
