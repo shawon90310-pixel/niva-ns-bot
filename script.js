@@ -3,7 +3,6 @@ tg.expand();
 
 let currentCoin = { name: "", rate: 0, limit: 0 };
 
-// ১. ফরম ওপেন করার ফাংশন
 function openSellForm(name, rate, limit, targetId) {
     currentCoin = { name, rate, limit }; 
     document.getElementById('formTitle').innerText = "Sell " + name;
@@ -11,7 +10,6 @@ function openSellForm(name, rate, limit, targetId) {
     showPage(2);
 }
 
-// ২. রিভিউ দেখার ফাংশন (যেখানে ক্যালকুলেশন ঠিক করা হয়েছে)
 function showReview() {
     const amt = document.getElementById('coinAmount').value;
     const user = document.getElementById('senderUsername').value;
@@ -19,11 +17,11 @@ function showReview() {
     const num = document.getElementById('walletNumber').value;
 
     if(!amt || !user || !num) {
-        tg.showAlert("দয়া করে সব ঘর পূরণ করুন!");
+        tg.showAlert("Please fill all fields!");
         return;
     }
 
-    // ১০০০ কয়েনের রেট অনুযায়ী সঠিক ক্যালকুলেশন
+    // সঠিক ক্যালকুলেশন (পরিমাণ / ১০০০ * রেট)
     const totalEarnings = (amt / 1000) * currentCoin.rate;
 
     document.getElementById('revCoin').innerText = currentCoin.name;
@@ -36,13 +34,13 @@ function showReview() {
     showPage(3);
 }
 
-// ৩. সাবমিট করার ফাংশন (আপনার নতুন লিঙ্কসহ)
 function finalSubmit() {
     const btn = document.getElementById('submitBtn');
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyfwsDiv2pkO-NAi4z41hacOnKeHEl3ykHR2LGZAPvQbMGYlU7TUxxmGHN_0HXgZkzg/exec';
+    // আপনার অ্যাপস স্ক্রিপ্ট URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxFKoxWfTiKhwtoAmOd13cOB9LSPAwLK1CrcTKYZjnaJV5wcBaLbtd_Jjsxz23dQjcj9w/exec';
 
     const data = {
         tgId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
@@ -58,7 +56,7 @@ function finalSubmit() {
         mode: 'no-cors',
         body: JSON.stringify(data)
     }).then(() => {
-        tg.showAlert("অর্ডারটি সফলভাবে জমা হয়েছে!");
+        tg.showAlert("অর্ডারটি শিটে জমা হয়েছে!");
         tg.close();
     }).catch(() => {
         tg.showAlert("Error!");
