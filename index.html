@@ -2,91 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NIVA BUYER ZONE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIVA + NS BUYER ZONE</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="container">
         <div id="step1" class="page active">
-            <h2 style="text-align: center; margin-bottom: 20px;">Coin Market</h2>
-            
+            <h2 style="text-align: center;">Coin Market</h2>
             <div class="coin-card" onclick="openSellForm('Niva Coin', 2.7, 20000, 'niva_buyer_zone_1')">
-                <div class="coin-info">
-                    <img src="https://via.placeholder.com/40" alt="icon">
-                    <div>
-                        <h3>Niva Coin</h3>
-                        <p>LIVE MARKET RATE</p>
-                    </div>
-                </div>
-                <div class="rate-grid">
-                    <div class="rate-box blue">User Rate<br><span>2.5৳</span></div>
-                    <div class="rate-box green">Admin Rate<br><span>2.5৳</span></div>
-                </div>
-                <p class="limit-text">Min Submit: 20,000</p>
+                <h3>Niva Coin Close-up</h3>
+                <p>User Rate: 2.7৳ (1k)</p>
+                <p>Min: 20,000</p>
             </div>
-
             <div class="coin-card" onclick="openSellForm('Ns coin', 10.5, 10000, 'ns_buy_user')">
-                <div class="coin-info">
-                    <img src="https://via.placeholder.com/40" alt="icon">
-                    <div>
-                        <h3>Ns coin</h3>
-                        <p>LIVE MARKET RATE</p>
-                    </div>
-                </div>
-                <div class="rate-grid">
-                    <div class="rate-box blue">User Rate<br><span>10.5৳</span></div>
-                    <div class="rate-box green">Admin Rate<br><span>10.5৳</span></div>
-                </div>
-                <p class="limit-text">Min Submit: 10,000</p>
+                <h3>Ns coin</h3>
+                <p>User Rate: 10.5৳ (1k)</p>
+                <p>Min: 10,000</p>
             </div>
         </div>
 
         <div id="step2" class="page">
-            <div class="form-header">
-                <h2 id="formTitle">Sell Coin</h2>
-                <button class="close-btn" onclick="goBack(1)">✕</button>
+            <h2 id="formTitle">Sell</h2>
+            <div class="copy-box">
+                <p>Send to ID: <b id="copyTargetId">---</b></p>
+                <button onclick="copyId()">COPY</button>
             </div>
-            
-            <div class="copy-id-box">
-                <p>SEND COINS TO THIS ID</p>
-                <h3 id="copyTargetId">---</h3>
-                <button onclick="copyId()">COPY ID</button>
-            </div>
-
-            <div class="input-group">
-                <label>MINIMUM SUBMIT LIMIT: <span id="minLimitLabel">0</span></label>
-                <input type="number" id="coinAmount" placeholder="Enter amount">
-                <input type="text" id="senderUsername" placeholder="Sender Username">
-                <div class="row">
-                    <select id="paymentMethod">
-                        <option value="Bkash">Bkash</option>
-                        <option value="Nagad">Nagad</option>
-                        <option value="Rocket">Rocket</option>
-                    </select>
-                    <input type="text" id="walletNumber" placeholder="Payment Number">
-                </div>
-            </div>
+            <input type="number" id="coinAmount" placeholder="Enter amount">
+            <input type="text" id="senderUsername" placeholder="Sender Username">
+            <select id="paymentMethod">
+                <option value="Bkash">Bkash</option>
+                <option value="Nagad">Nagad</option>
+                <option value="Rocket">Rocket</option>
+            </select>
+            <input type="text" id="walletNumber" placeholder="Number">
             <button class="main-btn" onclick="showReview()">Next Step →</button>
         </div>
 
         <div id="step3" class="page">
-            <div class="form-header">
-                <h2>Review Details</h2>
-                <button class="close-btn" onclick="goBack(2)">✕</button>
-            </div>
-            <div class="review-box" style="background: #1e293b; padding: 15px; border-radius: 12px; margin-top: 10px;">
-                <p>Coin: <b id="revCoin" style="float: right;">---</b></p>
-                <p>Amount: <b id="revAmount" style="float: right;">0</b></p>
-                <p>Sender: <b id="revSender" style="float: right;">---</b></p>
-                <p>Method: <b id="revMethod" style="float: right;">---</b></p>
-                <p>Account No: <b id="revNumber" style="float: right;">---</b></p>
+            <h2>Review Details</h2>
+            <div class="review-list">
+                <p>Coin: <span id="revCoin"></span></p>
+                <p>Amount: <span id="revAmount"></span></p>
+                <p>Sender: <span id="revSender"></span></p>
+                <p>Method: <span id="revMethod"></span></p>
+                <p>Number: <span id="revNumber"></span></p>
                 <hr>
-                <p style="text-align: center;">You Will Get:<br><span id="revTotal" style="font-size: 24px; color: #10b981;">0.00 ৳</span></p>
+                <h3 style="color: #10b981;">Total: <span id="revTotal"></span></h3>
             </div>
-            <button class="main-btn" id="submitBtn" onclick="finalSubmit()" style="background: #6366f1; margin-top: 20px;">Confirm & Submit ✓</button>
-            <p onclick="goBack(2)" style="text-align: center; color: #94a3b8; cursor: pointer; margin-top: 10px;">Go Back & Edit</p>
+            <button class="main-btn" id="submitBtn" onclick="finalSubmit()">Confirm & Submit ✓</button>
+            <p onclick="goBack(1)" style="text-align: center; cursor: pointer;">Cancel</p>
         </div>
     </div>
     <script src="script.js"></script>
