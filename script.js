@@ -1,7 +1,7 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// এখানে ডিফল্ট রেট ১০.৫০ এবং নাম Ns coin সেট করা হলো
+let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };ো
 let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };
 
 function openSellForm(name, rate, limit, targetId) {
