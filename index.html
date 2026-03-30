@@ -14,43 +14,45 @@
             
             <div class="coin-card" onclick="openSellForm('Niva Coin', OFF, 20000, 'niva_buyer_zone_1')">
                 <h3>Niva Coin Close OFF</h3>
-                <p>Rate: OFF৳ (OFF•k) • Min: OFF Close OFF</p>
+                <p>Rate: OFF৳ (OFF-K) • Min: OFF Close OFF</p>
             </div>
 
             <div style="margin-top: 25px; cursor: pointer;" onclick="openSellForm('Ns coin', 0.01, 5000, 'ns_buy_username')">
-    <h3 style="color: white; margin-bottom: 5px; margin-left: 5px;">Ns coin</h3>
-    <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px; margin-left: 5px;">LIVE MARKET RATE</p>
-    
-    <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 10px;">
-        <div style="font-size: 14px; opacity: 0.8;">User Rate</div>
-        <div style="font-size: 18px; font-weight: bold;">10.00৳</div>
-    </div>
+                <h3 style="color: white; margin-bottom: 5px; margin-left: 5px;">Ns coin</h3>
+                <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px; margin-left: 5px;">LIVE MARKET RATE</p>
+                
+                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 10px;">
+                    <div style="font-size: 14px; opacity: 0.8;">User Rate (per 1K)</div>
+                    <div style="font-size: 18px; font-weight: bold;">10.00৳</div>
+                </div>
 
-    <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center;">
-        <div style="font-size: 14px; opacity: 0.8;">Admin Rate/div>
-        <div style="font-size: 18px; font-weight: bold;">10.20৳</div>
-    </div>
-    <p style="color: #94a3b8; font-size: 12px; margin-top: 10px; text-align: center;">Min Submit: 5,000</p>
-</div>
+                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 14px; opacity: 0.8;">Admin Rate (per 1K)</div>
+                    <div style="font-size: 18px; font-weight: bold;">10.20৳</div>
+                </div>
+                <p style="color: #94a3b8; font-size: 12px; margin-top: 10px; text-align: center;">Min Submit: 5,000 (50 TK)</p>
+            </div>
+        </div>
+
         <div id="step2" class="page">
             <h2 id="formTitle">Sell</h2>
             <div class="copy-box" style="background: #1e293b; padding: 10px; border-radius: 10px; text-align: center;">
                 <p style="color: white;">Send to ID: <b id="copyTargetId" style="color: #3b82f6;">ns_buy_username</b></p>
-                <button onclick="copyId()" style="background: #3b82f6; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px;">COPY ID</button>
+                <button onclick="copyId()" style="background: #3b82f6; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;">COPY ID</button>
             </div>
-            
+
             <input type="number" id="coinAmount" placeholder="Enter amount" style="width: 100%; margin-top: 20px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
             
             <input type="text" id="senderUsername" placeholder="Sender Username" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            
+
             <select id="paymentMethod" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
                 <option value="Bkash">Bkash OFF🚫</option>
                 <option value="Nagad">Nagad</option>
                 <option value="Rocket">Rocket</option>
             </select>
-            
+
             <input type="text" id="walletNumber" placeholder="Payment Number" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            
+
             <button class="main-btn" onclick="showReview()" style="width: 100%; margin-top: 20px; padding: 15px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Next Step →</button>
             <p onclick="goBack(1)" style="text-align: center; margin-top: 15px; cursor: pointer; color: #94a3b8;">Back to Home</p>
         </div>
@@ -64,13 +66,14 @@
                 <p style="color: white;">Method: <span id="revMethod" style="float: right; font-weight: bold;"></span></p>
                 <p style="color: white;">Number: <span id="revNumber" style="float: right; font-weight: bold;"></span></p>
                 <hr style="border: 0.1px solid #334155; margin: 15px 0;">
-                <h3 style="text-align: center; color: #10b981; font-size: 22px;">Total: <span id="revTotal"></span></h3>
+                <h3 style="text-align: center; color: #10b981; font-size: 22px;">Total: <span id="revTotal"></span>৳</h3>
             </div>
-            
-            <button id="submitBtn" onclick="finalSubmit()" style="width: 100%; margin-top: 20px; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Confirm & Submit ✓</button>
+
+            <button id="submitBtn" onclick="finalSubmit()" style="width: 100%; margin-top: 20px; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Confirm Order</button>
             <p onclick="goBack(2)" style="text-align: center; margin-top: 15px; cursor: pointer; color: #94a3b8;">Edit Details</p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
