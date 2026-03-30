@@ -44,16 +44,15 @@ function showReview() {
     }
 
     // ক্যালকুলেশন: প্রতি ১০০০ কয়েনের রেট অনুযায়ী
-    const totalEarnings = (amt / 1000) * currentCoin.rate;
+       const totalEarnings = (amt / 1000) * currentCoin.rate;
 
-    document.getElementById('revCoin').innerText = currentCoin.name;
-    document.getElementById('revAmount').innerText = amt;
-    document.getElementById('revSender').innerText = user;
-    document.getElementById('revMethod').innerText = method;
-    document.getElementById('revNumber').innerText = num;
-    document.getElementById('revTotal').innerText = totalEarnings.toFixed(2);
-
-    showPage(3);
+   document.getElementById('revCoin').innerText = currentCoin.name;
+   document.getElementById('revAmount').innerText = amt;
+   document.getElementById('revSender').innerText = user;
+   document.getElementById('revMethod').innerText = method;
+   document.getElementById('revTotal').innerText = totalEarnings.toFixed(2);
+   
+   showPage(3);
 }
 
 // ৩. কপি করার ফাংশন
