@@ -145,3 +145,19 @@ function finalSubmit() {
     confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
   }, 250);
 }
+function openSellForm(coinName, rate, min, targetID) {
+    // ... আপনার আগের কোড ...
+    
+    // এই নিচের লাইনটি যোগ করুন যাতে আইডিটি ফর্মে দেখায়
+    document.getElementById("copyTargetId").innerText = targetID;
+    
+       showPage(2);
+ }
+
+ // ৭. আইডি কপি করার ফাংশন (এটি যেন নিচে থাকে)
+ function copyID() {
+    const idText = document.getElementById("copyTargetId").innerText;
+    navigator.clipboard.writeText(idText).then(() => {
+        tg.showAlert("✅ ID Copied: " + idText);
+    });
+ }
