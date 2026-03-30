@@ -94,7 +94,7 @@ function finalSubmit() {
     };
 
     // আপনার গুগল স্ক্রিপ্ট URL এখানে বসান
-    const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw_AC0KCvmT6pr-QSFoHZSaNew94Yk8ljlU70VMuBh59hC7OE7gK0DcQ5zIiKkzpDjF4w/exec';
 
     fetch(scriptURL, {
         method: 'POST',
