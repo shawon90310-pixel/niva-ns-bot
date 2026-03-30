@@ -112,3 +112,39 @@ function finalSubmit() {
         tg.close();
     });
 }
+function autoOfflineSystem() {
+    const now = new Date();
+    const hours = now.getHours(); // বর্তমান সময় (০-২৩ ফরম্যাটে)
+
+    // সকাল ১০টা (10) থেকে রাত ১১টা (23) পর্যন্ত অনলাইন থাকবে। 
+    // এর বাইরে অর্থাৎ রাত ১১টার পর থেকে সকাল ১০টার আগ পর্যন্ত অফলাইন হবে।
+    const isOnlineTime = (hours >= 10 && hours < 23); 
+
+    // সব কয়েন কার্ড সিলেক্ট করা হচ্ছে
+    const allCards = document.querySelectorAll('.coin-card');
+
+    allCards.forEach(card => {
+        const badge = card.querySelector('.online-badge');
+
+        if (!isOnlineTime) {
+            // অফলাইন করার কাজ
+            card.classList.add('offline');
+            if (badge) {
+                badge.classList.add('offline-badge-red');
+                badge.innerText = 'OFFLINE';
+            }
+        } else {
+            // অনলাইন করার কাজ
+            card.classList.remove('offline');
+            if (badge) {
+                badge.classList.remove('offline-badge-red');
+                badge.innerText = '• ONLINE';
+            }
+        }
+    });
+}
+
+// প্রতি ১ মিনিটে একবার চেক করবে সময় হয়েছে কি না
+setInterval(autoOfflineSystem, 60000);
+// পেজ লোড হওয়ার সাথে সাথে একবার চেক করবে
+autoOfflineSystem();
