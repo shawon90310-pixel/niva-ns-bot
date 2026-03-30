@@ -33,7 +33,15 @@
 .ns-rate-box:last-of-type {
     background: #10b981 !important;
 }
-    </style>
+  .coin-card.offline {
+    filter: grayscale(1) brightness(0.5); 
+    cursor: not-allowed;
+}
+
+.offline-badge-red {
+    background: #7f1d1d !important; 
+    color: #fca5a5 !important;
+}  </style>
 </head>
 <body>
 
@@ -41,8 +49,8 @@
         <div id="step1" class="page active">
             <div class="header-title">NS + Niva BUYER ZONE</div>
 
-            <div class="coin-card" onclick="openSellForm('Niva Coin', 0.0022, 10000, 'niva_buyer_zone_1')">
-                <span class="online-badge">• ONLINE</span>
+            <div class="coin-card offline" onclick="openSellForm('Niva Coin', 0.0022, 10000, 'niva_buyer_zone_1')">
+                <span class="online-badge offline-badge-red">offline</span>
                 <p class="coin-name">Niva Coin</p>
                 <p class="live-text">LIVE MARKET RATE</p>
                 <div class="rate-container">
