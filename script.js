@@ -66,12 +66,18 @@ function copyId() {
 
 // ৪. পেজ নেভিগেশন
 function showPage(num) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    // আপনার index.html এ যদি step2 সরাসরি থাকে তবে সেটি ডিসপ্লে ব্লক করবে
-    const step = document.getElementById('step' + num);
-    if (step) {
-        step.style.display = 'block';
-        step.classList.add('active');
+    // সব পেজ লুকিয়ে ফেলা
+    document.querySelectorAll('.page').forEach(p => {
+        p.style.display = 'none';
+        p.classList.remove('active');
+    });
+
+    // নির্দিষ্ট পেজটি দেখানো
+    const targetPage = document.getElementById('step' + num);
+    if (targetPage) {
+        targetPage.style.display = 'block';
+        targetPage.classList.add('active');
+        window.scrollTo(0, 0); // পেজ পরিবর্তনের পর একদম উপরে নিয়ে যাবে
     }
 }
 
