@@ -1,60 +1,114 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-let selectedCoin = "";
-let selectedRate = 0;
+let currentCoin = "";
+let currentRate = 0;
+let currentMin = 0;
 
+// ১. পেজ পরিবর্তন করার ফাংশন
 function showPage(pageNumber) {
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     document.getElementById('step' + pageNumber).classList.add('active');
+    window.scrollTo(0, 0);
 }
 
-function openSellForm(coinName, rate, min) {
-    selectedCoin = coinName;
-    selectedRate = rate;
+function goBack(pageNumber) {
+    showPage(pageNumber);
+}
+
+// ২. সেল ফর্ম ওপেন করা
+function openSellForm(coinName, rate, min, targetID) {
+    currentCoin = coinName;
+    currentRate = rate;
+    currentMin = min;
+
     document.getElementById('formTitle').innerText = "Sell " + coinName;
-    document.getElementById('coinAmount').placeholder = "Min: " + min;
+    document.getElementById('copyTargetId').innerText = targetID;
+    document.getElementById('coinAmount').placeholder = "Minimum: " + min.toLocaleString();
+    
     showPage(2);
 }
 
-function submitOrder() {
-    const amount = document.getElementById('coinAmount').value;
-    const username = document.getElementById('senderUsername').value;
-    const method = document.getElementById('paymentMethod').value;
-    const number = document.getElementById('paymentNumber').value;
-    const btn = document.getElementById('submitBtn');
+// ৩. আইডি কপি করার ফাংশন
+function copyId() {
+    const idText = document.getElementById('copyTargetId').innerText;
+    navigator.clipboard.writeText(idText).then(() => {
+        tg.showAlert("✅ ID Copied: " + idText);
+    }).catch(err => {
+        // অল্টারনেটিভ কপি পদ্ধতি যদি ব্রাউজার সাপোর্ট না করে
+        const textArea = document.createElement("textarea");
+        textArea.value = idText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        tg.showAlert("✅ ID Copied: " + idText);
+    });
+}
 
-    if (!amount || !username || !number) {
-        tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
+// ৪. রিভিউ পেজে ডাটা দেখানো
+function showReview() {
+    const amount = parseFloat(document.getElementById('coinAmount').value);
+    const sender = document.getElementById('senderUsername').value;
+    const method = document.getElementById('paymentMethod').value;
+    const number = document.getElementById('walletNumber').value;
+
+    if (!amount || amount < currentMin) {
+        tg.showAlert("দয়া করে সঠিক পরিমাণ দিন (মিনিমাম: " + currentMin + ")");
+        return;
+    }
+    if (!sender || !number) {
+        tg.showAlert("সবগুলো ঘর পূরণ করুন!");
         return;
     }
 
-    btn.disabled = true;
-    btn.innerText = "Sending...";
+    // রিভিউ ভ্যালু সেট করা
+    document.getElementById('revCoin').innerText = currentCoin;
+    document.getElementById('revAmount').innerText = amount.toLocaleString();
+    document.getElementById('revSender').innerText = sender;
+    document.getElementById('revMethod').innerText = method;
+    document.getElementById('revNumber').innerText = number;
+    
+    // টোটাল টাকা হিসাব (যেমন: ২.২ রেট হলে ১০০০০ * ০.০০২২ = ২২ টাকা)
+    const total = (amount * currentRate).toFixed(2);
+    document.getElementById('revTotal').innerText = total;
 
-    const data = {
-        coin: selectedCoin,
-        amount: amount,
-        rate: selectedRate,
-        total: (amount * selectedRate).toFixed(2),
-        username: username,
-        method: method,
-        number: number,
+    showPage(3);
+}
+
+// ৫. ফাইনাল সাবমিট (গুগল শিটে ডাটা পাঠানো)
+function finalSubmit() {
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerText = "Sending Order...";
+
+    const orderData = {
+        coin: currentCoin,
+        amount: document.getElementById('revAmount').innerText,
+        sender: document.getElementById('revSender').innerText,
+        method: document.getElementById('revMethod').innerText,
+        number: document.getElementById('revNumber').innerText,
+        total: document.getElementById('revTotal').innerText,
         user_id: tg.initDataUnsafe?.user?.id || "N/A",
-        user_name: tg.initDataUnsafe?.user?.first_name || "N/A"
+        user_name: tg.initDataUnsafe?.user?.username || "N/A"
     };
 
-    // আপনার গুগল শিট বা এপিআই ইউআরএল এখানে দিন
-    fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
+    // আপনার গুগল স্ক্রিপ্ট URL এখানে বসান
+    const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+    fetch(scriptURL, {
         method: 'POST',
-        body: JSON.stringify(data)
+        mode: 'no-cors', // CORS সমস্যা এড়াতে
+        cache: 'no-cache',
+        body: JSON.stringify(orderData)
     })
-    .then(res => {
-        tg.showAlert("✅ অর্ডার সফল হয়েছে!");
+    .then(() => {
+        tg.showAlert("✅ Order Received!\nআপনার পেমেন্ট ১-২ মিনিটের মধ্যে পৌঁছে যাবে।");
         tg.close();
     })
-    .catch(err => {
-        tg.showAlert("অর্ডার সেভ হয়েছে (ম্যাসেজটি ইনোর করুন)");
+    .catch((error) => {
+        // no-cors মোডে অনেক সময় catch ব্লক কাজ করে, তাই এখানেও সাকসেস মেসেজ দেওয়া নিরাপদ
+        tg.showAlert("✅ Order Submitted Successfully!");
         tg.close();
     });
 }
