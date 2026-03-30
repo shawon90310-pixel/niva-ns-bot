@@ -3,77 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIVA + NS BUYER ZONE</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Coin Market</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0e14;
+            color: white;
+            padding: 15px;
+        }
+
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 5px;
+        }
+
+        /* Card Style */
+        .card {
+            background: #161b22;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid #21262d;
+            overflow: hidden;
+        }
+
+        /* Status Badge */
+        .status {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 8px 25px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .online { background-color: #10b981; color: white; }
+        .offline { background-color: #443434; color: #f87171; }
+
+        .coin-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .coin-icon {
+            width: 50px;
+            height: 50px;
+            background: #2d333b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .coin-name h2 { font-size: 18px; margin-bottom: 2px; }
+        .coin-name p { font-size: 12px; color: #8b949e; font-weight: bold; }
+
+        /* Rates Section */
+        .rates-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .rate-box {
+            flex: 1;
+            text-align: center;
+            background: #0d1117;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .rate-label { font-size: 11px; color: #8b949e; margin-bottom: 8px; font-weight: bold; }
+
+        .rate-value {
+            padding: 8px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-bg { background: #2563eb; color: white; }
+        .admin-bg { background: #059669; color: white; }
+        .offline-bg { background: #3c414a; color: #8b949e; }
+
+        .footer-text {
+            text-align: center;
+            font-size: 11px;
+            color: #58a6ff;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: #161b22;
+            padding: 15px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-around;
+            border: 1px solid #30363d;
+        }
+
+        .nav-item { font-size: 20px; color: #8b949e; cursor: pointer; }
+        .active { color: #58a6ff; }
+    </style>
 </head>
-<body class="dark-theme">
-    <div id="app">
-        <div id="step1" class="page active">
-            <h2 style="text-align: center; color: white; margin-bottom: 20px;">Coin Market</h2>
-            
-            <div class="coin-card" onclick="openSellForm('Niva Coin', OFF, 20000, 'niva_buyer_zone_1')">
-                <h3>Niva Coin Close OFF</h3>
-                <p>Rate: OFF৳ (OFF-K) • Min: OFF Close OFF</p>
-            </div>
+<body>
 
-            <div style="margin-top: 25px; cursor: pointer;" onclick="openSellForm('Ns coin', 0.01, 5000, 'ns_buy_username')">
-                <h3 style="color: white; margin-bottom: 5px; margin-left: 5px;">Ns coin</h3>
-                <p style="color: #94a3b8; font-size: 12px; margin-bottom: 10px; margin-left: 5px;">LIVE MARKET RATE</p>
-                
-                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 10px;">
-                    <div style="font-size: 14px; opacity: 0.8;">User Rate (per 1K)</div>
-                    <div style="font-size: 18px; font-weight: bold;">10.00৳</div>
-                </div>
+    <div class="header">Coin Market</div>
 
-                <div style="background-color: #1e3a8a; color: white; padding: 15px; border-radius: 15px; text-align: center;">
-                    <div style="font-size: 14px; opacity: 0.8;">Admin Rate (per 1K)</div>
-                    <div style="font-size: 18px; font-weight: bold;">10.20৳</div>
-                </div>
-                <p style="color: #94a3b8; font-size: 12px; margin-top: 10px; text-align: center;">Min Submit: 10,000</p>
+    <div class="card">
+        <div class="status online">• ONLINE</div>
+        <div class="coin-info">
+            <div class="coin-icon">🟡</div>
+            <div class="coin-name">
+                <h2>Niva Coin</h2>
+                <p>LIVE MARKET RATE</p>
             </div>
         </div>
-
-        <div id="step2" class="page">
-            <h2 id="formTitle">Sell</h2>
-            <div class="copy-box" style="background: #1e293b; padding: 10px; border-radius: 10px; text-align: center;">
-                <p style="color: white;">Send to ID: <b id="copyTargetId" style="color: #3b82f6;">ns_buy_username</b></p>
-                <button onclick="copyId()" style="background: #3b82f6; color: white; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;">COPY ID</button>
+        <div class="rates-container">
+            <div class="rate-box">
+                <div class="rate-label">User Rate</div>
+                <div class="rate-value user-bg">2.2৳</div>
             </div>
-
-            <input type="number" id="coinAmount" placeholder="Enter amount" style="width: 100%; margin-top: 20px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            
-            <input type="text" id="senderUsername" placeholder="Sender Username" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-
-            <select id="paymentMethod" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-                <option value="Bkash">Bkash OFF🚫</option>
-                <option value="Nagad">Nagad</option>
-                <option value="Rocket">Rocket</option>
-            </select>
-
-            <input type="text" id="walletNumber" placeholder="Payment Number" style="width: 100%; margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-
-            <button class="main-btn" onclick="showReview()" style="width: 100%; margin-top: 20px; padding: 15px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Next Step →</button>
-            <p onclick="goBack(1)" style="text-align: center; margin-top: 15px; cursor: pointer; color: #94a3b8;">Back to Home</p>
+            <div class="rate-box">
+                <div class="rate-label">Admin Rate</div>
+                <div class="rate-value admin-bg">2.3৳</div>
+            </div>
         </div>
-
-        <div id="step3" class="page">
-            <h2 style="color: white; text-align: center;">Review Order</h2>
-            <div style="background: #1e293b; padding: 20px; border-radius: 12px; line-height: 2;">
-                <p style="color: white;">Coin: <span id="revCoin" style="float: right; font-weight: bold;"></span></p>
-                <p style="color: white;">Amount: <span id="revAmount" style="float: right; font-weight: bold;"></span></p>
-                <p style="color: white;">Sender: <span id="revSender" style="float: right; font-weight: bold;"></span></p>
-                <p style="color: white;">Method: <span id="revMethod" style="float: right; font-weight: bold;"></span></p>
-                <p style="color: white;">Number: <span id="revNumber" style="float: right; font-weight: bold;"></span></p>
-                <hr style="border: 0.1px solid #334155; margin: 15px 0;">
-                <h3 style="text-align: center; color: #10b981; font-size: 22px;">Total: <span id="revTotal"></span>৳</h3>
-            </div>
-
-            <button id="submitBtn" onclick="finalSubmit()" style="width: 100%; margin-top: 20px; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Confirm Order</button>
-            <p onclick="goBack(2)" style="text-align: center; margin-top: 15px; cursor: pointer; color: #94a3b8;">Edit Details</p>
+        <div class="footer-text">
+            Min Submit: 10,000 • Admin Rate From: 1,000,000 <br> • TAP TO SELL
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="card" style="opacity: 0.8;">
+        <div class="status offline">• OFFLINE</div>
+        <div class="coin-info">
+            <div class="coin-icon">🔘</div>
+            <div class="coin-name">
+                <h2>Ns coin</h2>
+                <p>LIVE MARKET RATE</p>
+            </div>
+        </div>
+        <div class="rates-container">
+            <div class="rate-box">
+                <div class="rate-label">User Rate</div>
+                <div class="rate-value offline-bg">10.0৳</div>
+            </div>
+            <div class="rate-box">
+                <div class="rate-label">Admin Rate</div>
+                <div class="rate-value offline-bg">10.2৳</div>
+            </div>
+        </div>
+        <div class="footer-text">
+            Min Submit: 5,000 • Admin Rate From: 100,000 <br> • TAP TO SELL
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-item active">🏠</div>
+        <div class="nav-item">🕒</div>
+        <div class="nav-item">🏆</div>
+        <div class="nav-item">🎬</div>
+    </div>
+
 </body>
 </html>
