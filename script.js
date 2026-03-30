@@ -100,7 +100,7 @@ function finalSubmit() {
     };
 
     // আপনার গুগল স্ক্রিপ্ট URL এখানে বসান
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw_AC0KCvmT6pr-QSFoHZSaNew94Yk8ljlU70VMuBh59hC7OE7gK0DcQ5zIiKkzpDjF4w/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyPLbjqEpcbjijJiLiXI6iSIEGoc3favolQtz4GSqcqmegQd5Nqqmc3FM_87yQGr2wKBQ/exec';
 
     fetch(scriptURL, {
         method: 'POST',
@@ -154,3 +154,20 @@ function autoOfflineSystem() {
 setInterval(autoOfflineSystem, 60000);
 // পেজ লোড হওয়ার সাথে সাথে একবার চেক করবে
 autoOfflineSystem();
+function logUserVisit() {
+    const visitorData = {
+        type: "visitor",
+        user_id: tg.initDataUnsafe.user?.id || "N/A",
+        user_name: tg.initDataUnsafe.user?.username || "N/A",
+        visit_time: new Date().toLocaleString()
+    };
+
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(visitorData)
+    });
+}
+
+// অ্যাপ খোলার ৩ সেকেন্ড পর ডেটা পাঠাবে
+setTimeout(logUserVisit, 3000);
