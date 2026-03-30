@@ -112,12 +112,36 @@ function finalSubmit() {
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    }).then(() => {
-        tg.showAlert("✅ Order Received!\n\nExpect your payment within 10 minutes. Thank you for choosing our service!");
-        tg.close();
-    }).catch(() => {
-        tg.showAlert("ভুল হয়েছে, আবার চেষ্টা করুন!");
-        btn.disabled = false;
-        btn.innerText = "Confirm & Submit ✓";
-    });
+      }).then(() => {
+     // ১. আগে অ্যানিমেশন চালু করুন
+     startSuccessAnimation(); 
+
+     // ২. মেসেজ দেখান
+     tg.showAlert("✅ Order Received!\nExpect your payment within 1-2 minutes.");
+
+     // ৩. ৫ সেকেন্ড পর অটোমেটিক বট বন্ধ হবে (যাতে অ্যানিমেশন দেখা যায়)
+     setTimeout(() => {
+         tg.close();
+     }, 5000); 
+ }).catch(() => {
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(function() {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    const particleCount = 50 * (timeLeft / duration);
+    
+    // বাম এবং ডান দিক থেকে জরি পড়বে
+    confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+    confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+  }, 250);
 }
