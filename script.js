@@ -17,7 +17,13 @@ function goBack(pageNumber) {
 }
 
 // ২. সেল ফর্ম ওপেন করা
-function openSellForm(coinName, rate, min, targetID) {
+function openSellForm(coinName, rate, min, targetID, event) {
+    // এই অংশটুকু স্বয়ংক্রিয়ভাবে ক্লিক আটকাবে 👇
+    if (event && event.currentTarget && event.currentTarget.classList.contains('offline')) {
+        tg.showAlert("🚫 দুঃখিত, রাত ১১টা থেকে সকাল ১০টা পর্যন্ত আমাদের সার্ভিস বন্ধ থাকে।");
+        return; 
+    }
+    
     currentCoin = coinName;
     currentRate = rate;
     currentMin = min;
@@ -25,7 +31,7 @@ function openSellForm(coinName, rate, min, targetID) {
     document.getElementById('formTitle').innerText = "Sell " + coinName;
     document.getElementById('copyTargetId').innerText = targetID;
     document.getElementById('coinAmount').placeholder = "Minimum: " + min.toLocaleString();
-    
+
     showPage(2);
 }
 
