@@ -9,9 +9,9 @@
     <style>
         body { font-family: sans-serif; background-color: #0f172a; margin: 0; padding: 20px; color: white; }
         .page { display: none; }
-.active { display: block; }
+        .active { display: block; }
         .header-title { text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 30px; }
-        .coin-card { background: #1e293b; border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; }
+        .coin-card { background: #1e293b; border-radius: 20px; padding: 20px; margin-bottom: 20px; position: relative; cursor: pointer; }
         .online-badge { position: absolute; top: 15px; right: 15px; background: #10b981; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
         .coin-name { font-size: 20px; font-weight: bold; margin: 0; }
         .live-text { color: #94a3b8; font-size: 12px; margin: 5px 0 20px 0; letter-spacing: 1px; }
@@ -19,101 +19,74 @@
         .rate-box { flex: 1; padding: 15px; border-radius: 15px; text-align: center; }
         .user-box { background: #2563eb; }
         .admin-box { background: #10b981; }
-        .ns-rate-box { background: #334155; } /* NS Coin dark style */
+        .ns-rate-box { background: #334155; }
         .rate-label { font-size: 13px; opacity: 0.9; margin-bottom: 5px; }
         .rate-value { font-size: 18px; font-weight: bold; }
         .footer-info { text-align: center; color: #3b82f6; font-size: 11px; margin-bottom: 8px; }
-        .tap-btn { text-align: center; color: #3b82f6; font-size: 13px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-    <style>
-  /* আপনার আগের সব ডিজাইন এখানে আছে... */
-
-  /* এই নতুন কোডটি একদম নিচে যোগ করুন */
-  .coin-card * {
-      pointer-events: none;
-  }
-  .coin-card {
-      pointer-events: auto !important;
-      cursor: pointer;
-  }
-</style>
+        .tap-btn { text-align: center; color: #3b82f6; font-size: 13px; font-weight: bold; text-transform: uppercase; }
+        
+        /* Form Styles */
+        input, select, button { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; box-sizing: border-box; }
+        button { background: #3b82f6; border: none; font-weight: bold; cursor: pointer; }
+    </style>
 </head>
 <body>
 
-    <div id="app">
-        <div id="step1" class="page active">
-            <div class="header-title">NS + Niva BUYER ZONE</div>
+<div id="app">
+    <div id="step1" class="page active">
+        <div class="header-title">NS + Niva BUYER ZONE</div>
 
-            <div class="coin-card"="openSellForm('Niva Coin', 2.2, 10000, 'niva_buyer_zone_1')">
-                <span class="online-badge">• ONLINE</span>
-                <p class="coin-name">Niva Coin</p>
-                <p class="live-text">LIVE MARKET RATE</p>
-                <div class="rate-container">
-                    <div class="rate-box user-box">
-                        <div class="rate-label">User Rate</div>
-                        <div class="rate-value">2.2৳</div>
-                    </div>
-                    <div class="rate-box admin-box">
-                        <div class="rate-label">Admin Rate</div>
-                        <div class="rate-value">2.3৳</div>
-                    </div>
+        <div class="coin-card" onclick="openSellForm('Niva Coin', 2.2, 10000)">
+            <span class="online-badge">• ONLINE</span>
+            <p class="coin-name">Niva Coin</p>
+            <p class="live-text">LIVE MARKET RATE</p>
+            <div class="rate-container">
+                <div class="rate-box user-box">
+                    <div class="rate-label">User Rate</div>
+                    <div class="rate-value">2.2৳</div>
                 </div>
-                <div class="footer-info">Min Submit: 10,000 • Admin Rate From: 1,000,000</div>
-                <div class="tap-btn" onclick="openSellForm('Niva Coin', 2.2, 10000, 'niva_buyer_zone_1')">• TAP TO SELL</div>
-            </div>
-
-            <div class="coin-card"="openSellForm('Ns coin', 10, 5000, 'ns_buy_username')">
-                <span class="online-badge">• ONLINE</span>
-                <p class="coin-name">Ns coin</p>
-                <p class="live-text">LIVE MARKET RATE</p>
-                <div class="rate-container">
-                    <div class="rate-box ns-rate-box">
-                        <div class="rate-label">User Rate</div>
-                        <div class="rate-value">10.0৳</div>
-                    </div>
-                    <div class="rate-box ns-rate-box">
-                        <div class="rate-label">Admin Rate</div>
-                        <div class="rate-value">10.2৳</div>
-                    </div>
+                <div class="rate-box admin-box">
+                    <div class="rate-label">Admin Rate</div>
+                    <div class="rate-value">2.3৳</div>
                 </div>
-                <div class="footer-info">Min Submit: 5,000 • Admin Rate From: 100,000</div>
-                <div class="tap-btn" onclick="openSellForm('Ns coin', 10, 5000, 'ns_buy_username')">• TAP TO SELL</div>
             </div>
+            <div class="footer-info">Min Submit: 10,000 • Admin Rate From: 1,000,000</div>
+            <div class="tap-btn">• TAP TO SELL</div>
         </div>
 
-        <div id="step2" class="page">
-            <h2 id="formTitle" style="text-align: center;">Sell</h2>
-            <div style="background: #1e293b; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
-                <p>Send to ID: <b id="copyTargetId" style="color: #3b82f6;">Loading...</b></p>
-                <button onclick="copyId()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold;">COPY ID</button>
+        <div class="coin-card" onclick="openSellForm('Ns coin', 10, 5000)">
+            <span class="online-badge">• ONLINE</span>
+            <p class="coin-name">Ns coin</p>
+            <p class="live-text">LIVE MARKET RATE</p>
+            <div class="rate-container">
+                <div class="rate-box ns-rate-box">
+                    <div class="rate-label">User Rate</div>
+                    <div class="rate-value">10.0৳</div>
+                </div>
+                <div class="rate-box ns-rate-box">
+                    <div class="rate-label">Admin Rate</div>
+                    <div class="rate-value">10.2৳</div>
+                </div>
             </div>
-            <input type="number" id="coinAmount" placeholder="Enter amount" style="width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            <input type="text" id="senderUsername" placeholder="Sender Username" style="width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            <select id="paymentMethod" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; background: #0f172a; color: white;">
-                <option value="Nagad">Nagad</option>
-                <option value="Bkash">Bkash OFF🚫</option>
-                <option value="Rocket">Rocket</option>
-            </select>
-            <input type="text" id="walletNumber" placeholder="Payment Number" style="width: 100%; box-sizing: border-box; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white;">
-            <button onclick="showReview()" style="width: 100%; padding: 15px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-weight: bold;">Next Step →</button>
-            <p onclick="goBack(1)" style="text-align: center; margin-top: 15px; color: #94a3b8; cursor: pointer;">Back to Home</p>
-        </div>
-
-        <div id="step3" class="page">
-            <h2 style="text-align: center;">Review Order</h2>
-            <div style="background: #1e293b; padding: 20px; border-radius: 15px; line-height: 2;">
-                <p>Coin: <span id="revCoin" style="float: right; font-weight: bold;"></span></p>
-                <p>Amount: <span id="revAmount" style="float: right; font-weight: bold;"></span></p>
-                <p>Sender: <span id="revSender" style="float: right; font-weight: bold;"></span></p>
-                <p>Method: <span id="revMethod" style="float: right; font-weight: bold;"></span></p>
-                <p>Number: <span id="revNumber" style="float: right; font-weight: bold;"></span></p>
-                <hr style="border: 0.1px solid #334155; margin: 15px 0;">
-                <h3 style="text-align: center; color: #10b981;">Total: <span id="revTotal"></span>৳</h3>
-            </div>
-            <button id="submitBtn" onclick="finalSubmit()" style="width: 100%; margin-top: 25px; padding: 15px; background: #10b981; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">Confirm Order</button>
-            <p onclick="goBack(2)" style="text-align: center; margin-top: 15px; color: #94a3b8; cursor: pointer;">Edit Details</p>
+            <div class="footer-info">Min Submit: 5,000 • Admin Rate From: 100,000</div>
+            <div class="tap-btn">• TAP TO SELL</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <div id="step2" class="page">
+        <h2 id="formTitle" style="text-align: center;">Sell</h2>
+        <input type="number" id="coinAmount" placeholder="Enter amount">
+        <input type="text" id="senderUsername" placeholder="Sender Username">
+        <select id="paymentMethod">
+            <option value="Nagad">Nagad</option>
+            <option value="Bkash">Bkash</option>
+        </select>
+        <input type="text" id="paymentNumber" placeholder="Payment Number">
+        <button id="submitBtn" onclick="submitOrder()">Confirm & Submit ✓</button>
+        <button onclick="showPage(1)" style="background: #475569;">Back</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
