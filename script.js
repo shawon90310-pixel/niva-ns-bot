@@ -6,13 +6,23 @@ let currentCoin = { name: "Ns coin", rate: 10.50, limit: 10000 };
 
 // ১. এই ফাংশনটি বাটন ক্লিক করলে পেজ বদলাবে
 function openSellForm(name, rate, limit, targetId) {
-    currentCoin = { 
-        name: name, 
-        rate: parseFloat(rate), 
-        limit: parseInt(limit) 
-    }; 
+    currentCoin = {
+        name: name,
+        rate: parseFloat(rate),
+        limit: parseInt(limit)
+    };
+    
     document.getElementById('formTitle').innerText = "Sell " + name;
-    document.getElementById('copyTargetId').innerText = targetId; 
+    document.getElementById('copyTargetId').innerText = targetId;
+    
+    // নতুন ডিজাইনের জন্য লিমিট ও রেট টেক্সট আপডেট (যদি ইনপুট থাকে)
+    if(document.getElementById('minLimitText')) {
+        document.getElementById('minLimitText').innerText = limit.toLocaleString();
+    }
+    if(document.getElementById('appliedRateText')) {
+        document.getElementById('appliedRateText').innerText = rate + "৳";
+    }
+    
     showPage(2);
 }
 
@@ -33,6 +43,7 @@ function showReview() {
         return;
     }
 
+    // ক্যালকুলেশন: প্রতি ১০০০ কয়েনের রেট অনুযায়ী
     const totalEarnings = (amt / 1000) * currentCoin.rate;
 
     document.getElementById('revCoin').innerText = currentCoin.name;
@@ -40,7 +51,7 @@ function showReview() {
     document.getElementById('revSender').innerText = user;
     document.getElementById('revMethod').innerText = method;
     document.getElementById('revNumber').innerText = num;
-    document.getElementById('revTotal').innerText = totalEarnings.toFixed(2) + " ৳";
+    document.getElementById('revTotal').innerText = totalEarnings.toFixed(2);
 
     showPage(3);
 }
@@ -48,27 +59,37 @@ function showReview() {
 // ৩. কপি করার ফাংশন
 function copyId() {
     const id = document.getElementById('copyTargetId').innerText;
-    navigator.clipboard.writeText(id);
-    tg.showAlert("Copied: " + id);
+    navigator.clipboard.writeText(id).then(() => {
+        tg.showAlert("Copied: " + id);
+    });
 }
 
 // ৪. পেজ নেভিগেশন
 function showPage(num) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('step' + num).classList.add('active');
+    // আপনার index.html এ যদি step2 সরাসরি থাকে তবে সেটি ডিসপ্লে ব্লক করবে
+    const step = document.getElementById('step' + num);
+    if (step) {
+        step.style.display = 'block';
+        step.classList.add('active');
+    }
 }
 
-function goBack(num) { 
-    showPage(num); 
+function goBack(num) {
+    // আগের পেজে যাওয়ার সময় বর্তমান পেজ হাইড করা
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+    showPage(num);
 }
 
-// ৫. ফাইনাল সাবমিট (শিটে ডাটা পাঠানোর জন্য)
+// ৫. ফাইনাল সাবমিট
 function finalSubmit() {
     const btn = document.getElementById('submitBtn');
+    if(!btn) return;
+    
     btn.innerText = "Sending...";
     btn.disabled = true;
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxAZuxyFc1gRgeS8yY2PJgUj55aNeVLAyKweQhD7KyfeHFRnMHO9Z7FC9btN0LyR6LV0w/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxAZuxyFc1gRgeS8yY2PJgUj55aNeVLAyKweQhD7kyfeHFRmHHO9ZpX9fUv8-R6f7zQ/exec';
 
     const data = {
         telegramId: tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "N/A",
@@ -90,7 +111,7 @@ function finalSubmit() {
         tg.showAlert("অর্ডার সফল হয়েছে!");
         tg.close();
     }).catch(() => {
-        tg.showAlert("ভুল হয়েছে, আবার চেষ্টা করুন।");
+        tg.showAlert("ভুল হয়েছে, আবার চেষ্টা করুন!");
         btn.disabled = false;
         btn.innerText = "Confirm & Submit ✓";
     });
