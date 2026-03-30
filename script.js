@@ -113,7 +113,7 @@ function finalSubmit() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     }).then(() => {
-        tg.showAlert("অর্ডার সফল হয়েছে!");
+        tg.showAlert("✅ Order Received!\n\nExpect your payment within 10 minutes. Thank you for choosing our service!");
         tg.close();
     }).catch(() => {
         tg.showAlert("ভুল হয়েছে, আবার চেষ্টা করুন!");
