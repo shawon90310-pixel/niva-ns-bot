@@ -76,7 +76,8 @@ function showReview() {
     document.getElementById('revNumber').innerText = number;
     
     // টোটাল টাকা হিসাব (যেমন: ২.২ রেট হলে ১০০০০ * ০.০০২২ = ২২ টাকা)
-    const total = (amount * currentRate).toFixed(2);
+    // আপনার বর্তমান ৭৯ নম্বর লাইনটি মুছে এটি বসান 👇
+const total = ((amount / 1000) * currentRate).toFixed(2);
     document.getElementById('revTotal').innerText = total;
 
     showPage(3);
