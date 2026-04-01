@@ -77,7 +77,19 @@ function showReview() {
     
     // টোটাল টাকা হিসাব (যেমন: ২.২ রেট হলে ১০০০০ * ০.০০২২ = ২২ টাকা)
     // আপনার বর্তমান ৭৯ নম্বর লাইনটি মুছে এটি বসান 👇
-const total = ((amount / 1000) * currentRate).toFixed(2);
+let currentCoin = document.getElementById('revCoin').innerText.toLowerCase();
+let rate = 0;
+
+// Niva এবং NS এর জন্য আলাদা রেট সেট করা
+if (currentCoin.includes("niva")) {
+    rate = 2.45; // ইউজারের জন্য নিভা রেট
+} else if (currentCoin.includes("ns")) {
+    rate = 10.40; // ইউজারের জন্য এনএস রেট
+} else {
+    rate = currentRate; // অন্য কিছু হলে আগের রেট
+}
+
+const total = ((amount / 1000) * rate).toFixed(2) + " ৳";
     document.getElementById('revTotal').innerText = total;
 
     showPage(3);
