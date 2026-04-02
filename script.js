@@ -53,48 +53,50 @@ function copyId() {
 }
 
 // ৪. রিভিউ পেজে ডাটা দেখানো
+// ৪. রিভিউ পেজে ডাটা দেখানো
 function showReview() {
     const amount = parseFloat(document.getElementById('coinAmount').value);
     const sender = document.getElementById('senderUsername').value;
     const method = document.getElementById('paymentMethod').value;
     const number = document.getElementById('walletNumber').value;
 
+    // ১. মিনিমাম চেক
     if (!amount || amount < currentMin) {
         tg.showAlert("দয়া করে সঠিক পরিমাণ দিন (মিনিমাম: " + currentMin + ")");
         return;
     }
+
+    // ২. খালি ঘর চেক
     if (!sender || !number) {
         tg.showAlert("সবগুলো ঘর পূরণ করুন!");
         return;
     }
 
-    // রিভিউ ভ্যালু সেট করা
+    // ৩. রেট সেট করা
+    let coinType = currentCoin.toLowerCase();
+    let rate = 0;
+
+    if (coinType.includes("niva")) {
+        rate = 2.45; // নিভা রেট
+    } else if (coinType.includes("ns")) {
+        rate = 10.40; // এনএস রেট
+    } else {
+        rate = currentRate; // অন্য কিছু হলে আগের রেট
+    }
+
+    // ৪. রিভিউ পেজে ডাটা বসানো
     document.getElementById('revCoin').innerText = currentCoin;
     document.getElementById('revAmount').innerText = amount.toLocaleString();
     document.getElementById('revSender').innerText = sender;
     document.getElementById('revMethod').innerText = method;
     document.getElementById('revNumber').innerText = number;
-    
-    // টোটাল টাকা হিসাব (যেমন: ২.২ রেট হলে ১০০০০ * ০.০০২২ = ২২ টাকা)
-    // আপনার বর্তমান ৭৯ নম্বর লাইনটি মুছে এটি বসান 👇
-let currentCoin = document.getElementById('revCoin').innerText.toLowerCase();
-let rate = 0;
 
-// Niva এবং NS এর জন্য আলাদা রেট সেট করা
-if (currentCoin.includes("niva")) {
-    rate = 2.45; // ইউজারের জন্য নিভা রেট
-} else if (currentCoin.includes("ns")) {
-    rate = 10.40; // ইউজারের জন্য এনএস রেট
-} else {
-    rate = currentRate; // অন্য কিছু হলে আগের রেট
-}
-
-const total = ((amount / 1000) * rate).toFixed(2) + " ৳";
+    // ৫. টোটাল টাকা হিসাব এবং পরের পেজে যাওয়া
+    const total = ((amount / 1000) * rate).toFixed(2) + " ৳";
     document.getElementById('revTotal').innerText = total;
 
     showPage(3);
 }
-
 // ৫. ফাইনাল সাবমিট (গুগল শিটে ডাটা পাঠানো)
 function finalSubmit() {
     const btn = event.target;
