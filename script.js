@@ -1,6 +1,17 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
-
+window.addEventListener("load", function() {
+    const loader = document.getElementById("loading-screen");
+    if (loader) {
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            loader.style.transition = "0.5s ease";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 500);
+        }, 2000); // ২ সেকেন্ড পর লোডিং স্ক্রিন চলে যাবে
+    }
+});
 let currentCoin = "";
 let currentRate = 0;
 let currentMin = 0;
