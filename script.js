@@ -80,7 +80,6 @@ function showReview() {
         rate = 2.45; // নিভা রেট
     } else if (coinType.includes("ns")) {
     rate = 9.5; // নতুন রেট সেট হলো
-}
     } else {
         rate = currentRate; // অন্য কিছু হলে আগের রেট
     }
